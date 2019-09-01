@@ -42,15 +42,12 @@ protected:
 int main(int argc, char const* argv[])
 {
 	Employee emp1("Denys");
-	Employee emp2("Yana");
-	Employee emp3;
+	Employee emp2 = emp1;
 
 	Utils::print(emp1.getId());
 	Utils::print(emp1.getName());
 	Utils::print(emp2.getId());
 	Utils::print(emp2.getName());
-	Utils::print(emp3.getId());
-	Utils::print(emp3.getName());
 
 	return 0;
 }

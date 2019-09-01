@@ -15,6 +15,19 @@ public:
 	{
 	}
 
+	Employee(Employee const& rhs)
+	: _id(s_index++)
+	{
+		_name = rhs._name;
+	}
+
+	Employee& operator=(Employee const& rhs)
+	{
+		_id = s_index++;
+		_name = rhs._name;
+		return *this;
+	}
+
 	~Employee()
 	{
 	}
