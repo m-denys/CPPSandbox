@@ -5,24 +5,24 @@ class HasPtr2
 public:
 	HasPtr2()
 	: _pStr(new std::string(""))
-	, _pCount(new int(1))
+	, _pRefCount(new int(1))
 	, _i(0)
 	{
 	}
 
 	HasPtr2(std::string const& s = std::string())
 	: _pStr(new std::string(s))
-	, _pCount(new int(1))
+	, _pRefCount(new int(1))
 	, _i(0)
 	{
 	}
 
 	HasPtr2(HasPtr2 const& rhs)
 	: _pStr(rhs._pStr)
-	, _pCount(rhs._pCount)
+	, _pRefCount(rhs._pRefCount)
 	, _i(rhs._i)
 	{
-		++_pCount;
+		++_pRefCount;
 	}
 
 	HasPtr2& operator=(HasPtr2 const& rhs)
@@ -32,24 +32,24 @@ public:
             return *this;
 		}
 
-		if (--_pCount == 0)
+		if (--_pRefCount == 0)
 		{
 			delete _pStr;
-			delete _pCount;
+			delete _pRefCount;
 		}	
 
 		_pStr = rhs._pStr;
-		_pCount = rhs._pCount;
+		_pRefCount = rhs._pRefCount;
 		_i = rhs._i;
 		return *this;
 	}
 
 	~HasPtr2()
 	{
-		if (--_pCount == 0)
+		if (--_pRefCount == 0)
 		{
 			delete _pStr;
-			delte _pCount;	
+			delte _pRefCount;	
 		}
 	}
 
@@ -64,6 +64,6 @@ public:
 
 private:
 	std::string* _pStr;
-	int* _pCount;
+	int* _pRefCount;
 	int _i;
 };
