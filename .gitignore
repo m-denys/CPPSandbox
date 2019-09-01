@@ -1,0 +1,7 @@
+# compilation and linking
+*.o
+*.s
+*.dll
+*.exe
+*.o
+*.ii
