@@ -22,7 +22,7 @@ public:
 	, _pRefCount(rhs._pRefCount)
 	, _i(rhs._i)
 	{
-		++_pRefCount;
+		++*_pRefCount;
 	}
 
 	HasPtr2& operator=(HasPtr2 const& rhs)
@@ -32,7 +32,7 @@ public:
             return *this;
 		}
 
-		if (--_pRefCount == 0)
+		if (--*_pRefCount == 0)
 		{
 			delete _pStr;
 			delete _pRefCount;
@@ -46,7 +46,7 @@ public:
 
 	~HasPtr2()
 	{
-		if (--_pRefCount == 0)
+		if (--*_pRefCount == 0)
 		{
 			delete _pStr;
 			delte _pRefCount;	
