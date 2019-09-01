@@ -1,10 +1,8 @@
 #pragma once
 
-#define PRINT_CONTAINER(expr) for (auto item : (expr)) std::cout << item << ", "; std::cout <<"\n";
-
 namespace Utils 
 {
-	template<typename T>
+/*	template<typename T>
 	void print(T const& obj, bool const isContainer = false)
 	{
 		if (isContainer)
@@ -19,5 +17,21 @@ namespace Utils
 	    {
 	    	std::cout << obj << std::endl;
 	    }
+	}*/
+
+	template<typename T>
+	void print(std::vector<T> const& vec)
+	{
+		for (auto const& item : vec)
+		{
+			std::cout << item << " ";
+		}
+		std::cout << std::endl;
+	}
+
+	template<typename T>
+	void print(T const& val)
+	{
+	    std::cout << val << std::endl;
 	}
 } // Utils

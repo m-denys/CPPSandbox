@@ -8,6 +8,7 @@
 
 ////////////////////
 #include "HasPtr.h"
+#include "Employee.h"
 
 /****Test-Section****/
 
@@ -17,19 +18,39 @@ public:
 	X() { Utils::print("this is X()"); }
 	X(X const& rhs) { Utils::print("this is X(X const& rhs)"); }
 	X& operator=(X const& rhs) { Utils::print("this is operator=(X const& rhs)"); return *this; }
-	~X() { Utils::print("this is ~X()"); }
+	//~X() { Utils::print("this is ~X()"); }
+	~X() = delete;
 };
+
+class Singletone
+{
+public:
+	static Singletone& instance()
+	{
+		static Singletone inst;
+		return inst;
+	}
+
+protected:
+	Singletone(){}
+	~Singletone(){}
+};
+
 
 /********************/
 
-
 int main(int argc, char const* argv[])
 {
-	//X x;
-	std::vector<X> v;
+	Employee emp1("Denys");
+	Employee emp2("Yana");
+	Employee emp3;
 
-	//v.push_back(x);
-	v.emplace_back();
+	Utils::print(emp1.getId());
+	Utils::print(emp1.getName());
+	Utils::print(emp2.getId());
+	Utils::print(emp2.getName());
+	Utils::print(emp3.getId());
+	Utils::print(emp3.getName());
 
 	return 0;
 }
