@@ -36,7 +36,11 @@ public:
 
 	bool operator==(HasPtr const& rhs)
 	{
-		return _ps == rhs._ps;
+		if (_ps && rhs._ps)
+		{
+			return *_ps == *rhs._ps;
+		}
+		return false;		
 	}
 
 private:

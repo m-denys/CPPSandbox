@@ -11,21 +11,13 @@
 
 /****Test-Section****/
 
-class Test
+class X
 {
 public:
-	Test()
-	: _i(42)
-	, _f(3.14159)
-	{
-	}
-
-	~Test()
-	{
-	}
-
-	int _i;
-	float _f;
+	X() { Utils::print("this is X()"); }
+	X(X const& rhs) { Utils::print("this is X(X const& rhs)"); }
+	X& operator=(X const& rhs) { Utils::print("this is operator=(X const& rhs)"); return *this; }
+	~X() { Utils::print("this is ~X()"); }
 };
 
 /********************/
@@ -33,19 +25,11 @@ public:
 
 int main(int argc, char const* argv[])
 {
+	//X x;
+	std::vector<X> v;
 
-	Test t;
-	std::cout << t._i << "\n";
-	std::cout << t._f << "\n";
-
-/*	HasPtr none();
-	HasPtr ptr1("hello");
-	HasPtr ptr2(ptr1);
-	HasPtr ptr3("junk");
-
-	ptr1 = ptr3;
-
-	std::cout << (ptr1 == ptr3 ? "y" : "n") << std::endl;*/
+	//v.push_back(x);
+	v.emplace_back();
 
 	return 0;
 }
