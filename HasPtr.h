@@ -23,9 +23,9 @@ public:
 
 	HasPtr& operator=(HasPtr const& rhs)
 	{
-		if (this == &rhs)
+		if (*this == rhs)
 		{
-			return *this;
+            return *this;
 		}
 		delete _ps;
 		_ps = new std::string(*rhs._ps);
