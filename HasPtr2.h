@@ -41,6 +41,9 @@ public:
 		_pStr = rhs._pStr;
 		_pRefCount = rhs._pRefCount;
 		_i = rhs._i;
+
+		++*_pRefCount;
+
 		return *this;
 	}
 
