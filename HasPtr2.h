@@ -17,17 +17,17 @@ public:
 	{
 	}
 
-	HasPtr2(HasPtr2 const& rhs)
-	: _pStr(rhs._pStr)
-	, _pRefCount(rhs._pRefCount)
-	, _i(rhs._i)
+	HasPtr2(HasPtr2 const& other)
+	: _pStr(other._pStr)
+	, _pRefCount(other._pRefCount)
+	, _i(other._i)
 	{
 		++*_pRefCount;
 	}
 
-	HasPtr2& operator=(HasPtr2 const& rhs)
+	HasPtr2& operator=(HasPtr2 const& other)
 	{
-		if (this == &rhs)
+		if (this == &other)
 		{
             return *this;
 		}
@@ -38,9 +38,9 @@ public:
 			delete _pRefCount;
 		}	
 
-		_pStr = rhs._pStr;
-		_pRefCount = rhs._pRefCount;
-		_i = rhs._i;
+		_pStr = other._pStr;
+		_pRefCount = other._pRefCount;
+		_i = other._i;
 
 		++*_pRefCount;
 
@@ -56,11 +56,11 @@ public:
 		}
 	}
 
-	bool operator==(HasPtr2 const& rhs)
+	bool operator==(HasPtr2 const& other)
 	{
-		if (_pStr && rhs._pStr)
+		if (_pStr && other._pStr)
 		{
-			return _pStr == rhs._pStr;
+			return _pStr == other._pStr;
 		}
 		return false;		
 	}

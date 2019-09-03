@@ -17,4 +17,19 @@ namespace Utils
 	{
 	    std::cout << val << std::endl;
 	}
+
+	template<typename T>
+	T&& move(T& value)
+	{
+		return static_cast<T&&>(value);
+	}
+
+	template<typename T>
+	void swap(T& lhs, T& rhs)
+	{
+		T temp = std::move(lhs);
+		lhs = std::move(rhs);
+		rhs = std::move(temp);
+	}
+
 } // Utils
