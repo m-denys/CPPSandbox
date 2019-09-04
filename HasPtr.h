@@ -35,6 +35,7 @@ public:
     // swap-copy idiom 
     // Assignment operators that use copy and swap are automatically exception 
     // safe and correctly handle self-assignment.
+/*
     HasPtr& operator=(HasPtr other)
     {
 #ifdef DEBUG
@@ -43,6 +44,7 @@ public:
         swap(*this, other);
         return *this;
     }
+*/
 
     HasPtr(HasPtr&& other)
     {

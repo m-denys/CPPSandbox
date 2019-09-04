@@ -57,9 +57,10 @@ int main(int argc, char const* argv[])
     Utils::print(v2);*/
 
     HasPtr hp1("!#!@", 42);
-    HasPtr hp2("^*&%#)", 13);
-
+    {
+    	HasPtr hp2("^*&%#)", 13);	
+    	hp1 = Utils::move(hp2);
+    }
     
-
     return 0;
 }

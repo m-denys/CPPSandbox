@@ -24,6 +24,9 @@ namespace Utils
 		return static_cast<T&&>(value);
 	}
 
+	// Swap idiom with move semantic
+	// If object has a shared resource (pointer)
+	// It is better to use object's own swap function
 	template<typename T>
 	void swap(T& lhs, T& rhs)
 	{
