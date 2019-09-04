@@ -23,13 +23,28 @@ public:
 #endif
     }
 
-    HasPtr(HasPtr& other)
+    HasPtr(HasPtr const& other)
     : _ps(new std::string(*other._ps))
     , _i(other._i)
     {
 #ifdef DEBUG
     std::cout << "HasPtr(HasPtr& other) is called\n";
 #endif
+    }
+
+    HasPtr& operator=(HasPtr const& other)
+    {
+#ifdef DEBUG
+    std::cout << "HasPtr& operator=(HasPtr const& other) is called\n";
+#endif
+        if (this == &other)
+        {
+            return *this;
+        }
+        delete _ps;
+        _ps = new std::string(*other._ps);
+        _i = other._i;
+        return *this;
     }
 
     // swap-copy idiom 
@@ -62,20 +77,6 @@ public:
         swap(*this, other);
         return *this;
     }
-
-    /*  
-    HasPtr& operator=(HasPtr const& other)
-    {
-        if (this == &other)
-        {
-            return *this;
-        }
-        delete _ps;
-        _ps = new std::string(*other._ps);
-        _i = other._i;
-        return *this;
-    }
-    */
 
     ~HasPtr()
     {
