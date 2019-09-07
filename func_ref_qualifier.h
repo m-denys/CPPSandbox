@@ -32,6 +32,6 @@ int main(int argc, char const* argv[])
 /*
 	Output: 
 	'printInfo() &' for l-value is called
-	'printInfo() &&' for l-value is called
+	'printInfo() &&' for r-value is called
 */
 
