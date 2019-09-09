@@ -3,11 +3,15 @@
 class HasPtr
 {
     friend void swap(HasPtr&, HasPtr&);
+    friend std::ostream& operator<<(std::ostream&, HasPtr const&);
+    friend bool operator==(HasPtr const&, HasPtr const&);
+    friend bool operator!=(HasPtr const&, HasPtr const&);
+    friend HasPtr operator+(HasPtr const&, HasPtr const&);
 
 public:
     HasPtr()
-    : _ps(nullptr)
-    , _i(0)
+    : ps_(nullptr)
+    , i_(0)
     {
 #ifdef DEBUG
     std::cout << "HasPtr() is called\n";
@@ -15,8 +19,8 @@ public:
     }
 
     HasPtr(std::string const& s, int const i)
-    : _ps(new std::string(s))
-    , _i(i)
+    : ps_(new std::string(s))
+    , i_(i)
     {
 #ifdef DEBUG
     std::cout << "HasPtr(std::string const& s, int const i) is called\n";
@@ -24,8 +28,8 @@ public:
     }
 
     HasPtr(HasPtr const& other)
-    : _ps(new std::string(*other._ps))
-    , _i(other._i)
+    : ps_(new std::string(*other.ps_))
+    , i_(other.i_)
     {
 #ifdef DEBUG
     std::cout << "HasPtr(HasPtr& other) is called\n";
@@ -41,9 +45,9 @@ public:
         {
             return *this;
         }
-        delete _ps;
-        _ps = new std::string(*other._ps);
-        _i = other._i;
+        delete ps_;
+        ps_ = new std::string(*other.ps_);
+        i_ = other.i_;
         return *this;
     }
 
@@ -80,36 +84,71 @@ public:
 
     ~HasPtr()
     {
-        delete _ps;
-    }
-
-    bool operator==(HasPtr const& other)
-    {
-        if (_ps && other._ps)
-        {
-            return *_ps == *other._ps;
-        }
-        return false;       
+        delete ps_;
     }
 
     bool operator<(HasPtr const& other)
     {
-        return _i < other._i;
+        return i_ < other.i_;
     }
 
-    void printInfo() { std::cout << "_ps: " << *_ps << " _i: " << _i << std::endl; }
+    void printInfo() { std::cout << "ps_: " << *ps_ << " i_: " << i_ << std::endl; }
 
 private:
-    std::string* _ps;
-    int _i;
+    std::string* ps_;
+    int i_;
 };
+
+bool operator==(HasPtr const& lhs, HasPtr const& rhs)
+{
+#ifdef DEBUG
+    std::cout << "HasPtr operator==(HasPtr const&, HasPtr const&) is called\n";
+#endif
+    if (lhs.ps_ && rhs.ps_)
+    {
+        return *lhs.ps_ == *rhs.ps_ && lhs.i_ == rhs.i_;
+    }
+    else if (!lhs.ps_ && !rhs.ps_)
+    {
+        return lhs.i_ == rhs.i_;
+    }
+    return false;       
+}
+
+bool operator!=(HasPtr const& lhs, HasPtr const& rhs)
+{
+#ifdef DEBUG
+    std::cout << "HasPtr operator!=(HasPtr const&, HasPtr const&) is called\n";
+#endif
+    return !(lhs == rhs);       
+}
+
+HasPtr operator+(HasPtr const& lhs, HasPtr const& rhs)
+{
+#ifdef DEBUG
+    std::cout << "HasPtr operator+(HasPtr const&, HasPtr const&) is called\n";
+#endif
+    if (lhs.ps_ && rhs.ps_)
+    {
+        return HasPtr(*lhs.ps_ + *rhs.ps_, lhs.i_ + rhs.i_);
+    }
+    return HasPtr();
+}
 
 inline void swap(HasPtr& lhs, HasPtr& other)
 {
-    std::swap(lhs._ps, other._ps);
-    std::swap(lhs._i, other._i);
-
 #ifdef DEBUG
     std::cout << "void swap(HasPtr&, HasPtr&) is called\n";
 #endif
+    std::swap(lhs.ps_, other.ps_);
+    std::swap(lhs.i_, other.i_);
+}
+
+std::ostream& operator<<(std::ostream& os, HasPtr const& hp)
+{
+#ifdef DEBUG
+    std::cout << "std::ostream& operator<<(std::ostream& os, HasPtr const& hp) is called\n";
+#endif
+    os << (*hp.ps_) << " " << hp.i_;
+    return os;
 }
