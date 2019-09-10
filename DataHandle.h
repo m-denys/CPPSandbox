@@ -9,8 +9,8 @@ public:
 	{
 	}
 
-	DataHandle(T data)
-	: data_(new T(data))
+	DataHandle(T* data)
+	: data_(data)
 	{
 	}
 
@@ -24,14 +24,14 @@ public:
 		return data_ != nullptr;
 	}
 
-	T& operator*() const
+	T& operator*()
 	{
 		return *data_;
 	}
 
-	T* operator->() const
+	T* operator->()
 	{
-		return &(*this);
+		return data_;
 	}
 
 private:

@@ -20,10 +20,21 @@
 
 /****Test-Section****/
 
+struct Boo
+{
+    int mem_ = 42;
+};
+
 /********************/
 
 int main(int argc, char const* argv[])
 {
-    Utils::print(Abs()(-42.134123));
-    Utils::print(Abs()(-42.134123,-404.13));
+
+    std::vector<int> v{1, 2};
+    DataHandle<std::vector<int>> handle(&v);
+    Utils::print(handle->size());
+
+    DataHandle<Boo> handle1(new Boo());
+    Utils::print(handle1->mem_);
+    Utils::print((*handle1).mem_);
 }
