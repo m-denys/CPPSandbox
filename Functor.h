@@ -15,6 +15,16 @@ struct Abs
     }
 };
 
+class Ternary
+{
+public:
+    template<typename T>
+    T operator()(bool cond, T ifTrue, T ifFalse)
+    {
+        return cond ? ifTrue : ifFalse;
+    } 
+};
+
 /*
 int main(int argc, char const* argv[])
 {
