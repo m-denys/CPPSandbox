@@ -4,6 +4,8 @@
 #include <string>
 #include <cstdio>
 #include <algorithm>
+#include <set>
+#include <map>
 
 ////////////////////
 #include "debug.h"
@@ -22,31 +24,40 @@
 #include "Shape.h"
 
 /****Test-Section****/
-    
-class BaseWithStatic
+
+struct Base
 {
-public:
-    static int s_i;
+    int getProd(int a, int b)
+    {
+        return a * b;
+    }
+
+    int getProd(int a)
+    {
+        return a * a;
+    }
 };
 
-class DerivedWithStatic : public BaseWithStatic
+struct Derived : public Base
 {
+    using Base::getProd;
 
+    int getProd(int a, int b, int c)
+    {
+        return a * b * c;
+    }
 };
+
 /********************/
-
-int BaseWithStatic::s_i = 42;
 
 int main(int argc, char const* argv[])
 {
    using namespace Utils;
-   ///////////////
    
-   print(BaseWithStatic::s_i);
-   print(DerivedWithStatic::s_i);
 
-   DerivedWithStatic::s_i = 101;
+   Derived d;
 
-   print(BaseWithStatic::s_i);
-   print(DerivedWithStatic::s_i);
+   print(d.getProd(5, 2));
+   print(d.getProd(2, 4));
+   print(d.getProd(3, 3, 3));
 }
