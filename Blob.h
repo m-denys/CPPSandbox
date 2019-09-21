@@ -56,3 +56,83 @@ template<typename T> class C2
     // Friendship for all instances (T and X are different)
     template <typename X> friend class Pal2;
 };
+
+// Static Members
+// Each instantiated class will have specific static memeber
+template<typename T>
+class MyBlob
+{
+public:
+    MyBlob(){}
+    ~MyBlob(){}
+
+    static int index;
+};
+
+template<typename T>
+int MyBlob<T>::index = 0;
+
+// int main(int argc, char const *argv[])
+// {
+//     MyBlob<int> iObj;
+//     MyBlob<float> fObj;
+    
+//     iObj.index = 101;
+//     fObj.index = 404;
+       
+//     print(MyBlob<int>::index);
+//     print(MyBlob<float>::index);
+
+//     return 0;
+// }
+    
+// Output:
+// 101
+// 404
+
+// Default args
+template<typename T = int, typename Comp = std::less<T>>
+class Comparator
+{
+public:
+    T operator()(T const& left, T const& right)
+    {
+       return Comp()(left, right);
+    }
+};
+// Possible using: 
+//     Comparator<> comp;
+//     Comparator<int> comp1;
+//     Comparator<int, std::equal<T>> comp2;
+
+// Template function inside template class
+template<typename T>
+class Data
+{
+public:
+    template<typename Iterator>
+    Data(Iterator first, Iterator second);
+    
+private:
+    std::vector<T> data_;
+};
+
+template<typename T>
+template<typename Iterator>
+Data<T>::Data(Iterator first, Iterator second)
+: data_(first, second)
+{
+}
+
+// Compiler and Instantiation
+template<typename T>
+class MyClass
+{
+public:
+    T getSomething()
+    {
+         // there is no value to return
+         // but compiler will not notify us
+         // while this function be used   
+    }
+};

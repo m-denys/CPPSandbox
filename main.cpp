@@ -30,16 +30,27 @@
 
 /****Test-Section****/
 
+template<typename T>
+class MyClass
+{
+public:
+    T getSomething()
+    {
+        
+    }
+
+};
+
 /********************/
+
 
 int main(int argc, char const* argv[])
 {
    using namespace Utils;
    /*********************/
 
-   Blob<int> blob = new std::vector<int>(10);
-   Blob<int> blob1;
+    MyClass<int> obj;// myObject;
 
-   print(blob.size());
-   print(blob1.size());
+   //myObject.getSquare(10);
+   
 }
