@@ -25,6 +25,9 @@
 ///////////////////
 #include "Shape.h"
 
+//////////////////
+#include "Blob.h"
+
 /****Test-Section****/
 
 /********************/
@@ -34,8 +37,9 @@ int main(int argc, char const* argv[])
    using namespace Utils;
    /*********************/
 
-   std::vector<int> v{ 1, 2, 3, 4 };
-   auto iter = Templates::find(v.begin(), v.end(), 3);
+   Blob<int> blob = new std::vector<int>(10);
+   Blob<int> blob1;
 
-   print(*iter);
+   print(blob.size());
+   print(blob1.size());
 }
