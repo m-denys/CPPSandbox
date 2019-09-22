@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <set>
 #include <map>
+#include<type_traits>
 
 ////////////////////
 #include "debug.h"
@@ -30,27 +31,35 @@
 
 /****Test-Section****/
 
-template<typename T>
-class MyClass
+// template<typename A, typename B>
+// A sum(A const& a, B const& b)
+// {
+//     return a + b;
+// }
+
+
+template<typename A>
+A sum1(A const& a, A const& b)
 {
-public:
-    T getSomething()
-    {
-        
-    }
-
-};
-
+    return a + b;
+}
 /********************/
+
 
 
 int main(int argc, char const* argv[])
 {
    using namespace Utils;
    /*********************/
+   std::vector<int> v{1, 2, 3, 4, 5, 6, 7};
+   auto& element = getMiddle(v.begin(), v.end());
+   element = 10;
+   auto element1 = getMiddleNoRef(v.begin(), v.end());
 
-    MyClass<int> obj;// myObject;
-
-   //myObject.getSquare(10);
-   
+   print(element);
+   print(element1);
+   element1 = 42;
+   auto element2 = getMiddleNoRef(v.begin(), v.end());
+   print(element2);
+  
 }

@@ -136,3 +136,32 @@ public:
          // while this function be used   
     }
 };
+
+// Explicit template argument
+template<typename T1, typename T2, typename T3>
+T1 sum(T2 const& a, T3 const& b)
+{
+    return a + b;
+}
+// main()
+// {
+//     // T1 is explicitly defined in this case
+//     auto res = sum<int>(10.f + 404);
+// }
+
+// When it is not possible to get return type before list of parameters
+// Trailing edge return type declaration can be used
+// Note: by c++14, only "auto" is enough
+template<typename Iterator>
+auto getMiddle(Iterator first, Iterator second) -> decltype(*first)
+{
+    return *(first + std::distance(first, second) / 2);
+}
+
+// TYPE_TRAITS -> <type_trait>
+template<typename Iterator>
+auto getMiddleNoRef(Iterator first, Iterator second) 
+    -> typename std::remove_reference<decltype(*first)>::type
+{
+    return *(first + std::distance(first, second) / 2);
+}
