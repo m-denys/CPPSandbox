@@ -51,15 +51,5 @@ int main(int argc, char const* argv[])
 {
    using namespace Utils;
    /*********************/
-   std::vector<int> v{1, 2, 3, 4, 5, 6, 7};
-   auto& element = getMiddle(v.begin(), v.end());
-   element = 10;
-   auto element1 = getMiddleNoRef(v.begin(), v.end());
-
-   print(element);
-   print(element1);
-   element1 = 42;
-   auto element2 = getMiddleNoRef(v.begin(), v.end());
-   print(element2);
-  
+   
 }

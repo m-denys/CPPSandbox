@@ -165,3 +165,16 @@ auto getMiddleNoRef(Iterator first, Iterator second)
 {
     return *(first + std::distance(first, second) / 2);
 }
+
+// std::move
+// standard library implementation (lpmn)
+namespace move
+{
+    template<typename T>
+    typename std::remove_reference<T>::type&& move(T&& t)
+    {
+        return static_cast<typename std::remove_reference<T>::type&&>(t);
+    }
+} // move
+
+
