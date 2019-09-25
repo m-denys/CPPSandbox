@@ -7,13 +7,13 @@ template<typename T>
 class Blob
 {
 public:
-    using value_type = T;
-    using size_type = typename std::vector<T>::size_type;
+    using valueTpe = T;
+    using sizeTpe = typename std::vector<T>::sizeTpe;
 
     Blob();
     Blob(std::vector<T>* ptr);
 
-    size_type size() const;
+    sizeTpe size() const;
 
 private:
     std::vector<T>* data_;
@@ -32,7 +32,7 @@ Blob<T>::Blob(std::vector<T>* ptr)
 }
 
 template<typename T>
-typename Blob<T>::size_type Blob<T>::size() const
+typename Blob<T>::sizeTpe Blob<T>::size() const
 {
     return data_ ? data_->size() : 0;
 }
@@ -168,13 +168,134 @@ auto getMiddleNoRef(Iterator first, Iterator second)
 
 // std::move
 // standard library implementation (lpmn)
-namespace move
+namespace vs
 {
     template<typename T>
     typename std::remove_reference<T>::type&& move(T&& t)
     {
         return static_cast<typename std::remove_reference<T>::type&&>(t);
     }
-} // move
+} // vs
+
+// std::forward
+// visual studio impl
+    // FUNCTION TEMPLATE forward
+namespace vs 
+{
+    template<class _Ty>
+        /*_NODISCARD*/ constexpr _Ty&& forward(std::remove_reference_t<_Ty>& _Arg) /*_NOEXCEPT*/
+        {    // forward an lvalue as either an lvalue or an rvalue
+        return (static_cast<_Ty&&>(_Arg));
+        }
+} // vs
+
+// Using string stream
+// #include <sstream>
+
+// main()
+// {
+//     std::ostringstream ss;
+//     ss << 42;
+//     print(ss.str());
+// }
+
+// Variadic TEMPLATES
+namespace variadic 
+{
+    // Note: pay attention on "sizeof..."
+    template<typename... Args>
+    void foo(Args... args)
+    {
+        std::cout << "count of Args: " << sizeof...(Args) << std::endl;
+        std::cout << "count of args: " << sizeof...(args) << std::endl;
+    }
+
+    // Recursive call
+    template<typename T>
+    void printArgs(T t)
+    {
+        std::cout << t << std::endl;
+    }
+
+    template<typename T, typename... Args>
+    void printArgs(T t, Args... args)
+    {
+        std::cout << t << std::endl;
+        printArgs(args...);
+    }
+
+    // Node: Args... and args.. -> pack expansion (разверTывание пакеTа),
+    // Dots are signals that args should be expanded in specific place
+
+} // variadic
+
+// TEMPLATE SPECIALIZATION
+// When there should be special template version for specific arguments
+// 'template specialization' might be used
+namespace specialization 
+{
+    // Function specialization
+    // Generic version
+    template<typename T1, typename T2>
+    int compare(T1 const& lhs, T2 const& rhs)
+    {
+        return lhs == rhs ? 0 : (lhs < rhs ? -1 : 1); 
+    }
+
+    // Specialized version
+    // Note: generic version declaration should be visible
+    template<>
+    int compare(char const* const& p1, char const* const& p2)
+    {
+        return strcmp(p1, p2);
+    }
+
+    // Class specialization
+    namespace std 
+    {
+        template<typename T>
+        struct hash
+        {
+            // template code
+        };
+
+        class Sales_data;
+        template<>
+        struct hash<Sales_data>
+        {
+            typedef size_t result_type;
+            typedef Sales_data argument_type;
+            size_t operator() (Sales_data const& s) const;
+        };
+
+        size_t hash<Sales_data>::operator() (Sales_data const& s) const
+        {
+            /*return hash<string>()(s.bookNo) ^
+                   hash<unsigned>()(s.units_sold) ^
+                   hash<double>()(s.revenue);*/
+            return 42;
+        }
+    } // std
+
+    // Class partial specialization
+    template <class T> 
+    struct remove_reference 
+    { 
+        typedef T type; 
+    }; 
+
+    template <class T> 
+    struct remove_reference<T&>  
+    { 
+        typedef T type; 
+    }; 
+
+    template <class T> 
+    struct remove_reference<T&&>  
+    {  
+        typedef T type; 
+    };
+
+} // specialization
 
 
