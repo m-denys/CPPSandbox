@@ -9,6 +9,10 @@
 #include <map>
 #include <type_traits>
 #include <sstream>
+#include <tuple>
+#include <utility>
+#include <numeric>
+#include <bitset>
 
 ////////////////////
 #include "debug.h"
@@ -32,50 +36,26 @@
 
 /****Test-Section****/
 
-// template<typename A, typename B>
-// A sum(A const& a, B const& b)
-// {
-//     return a + b;
-// }
-
-
-template<typename A>
-A sum1(A const& a, A const& b)
+class MyClass
 {
-    return a + b;
-}
+public:
+    explicit MyClass(int const i)
+    : i_(i)
+    {
+    }
+
+private:
+    int i_;
+};
+
 /********************/
-
-bool b()
-{
-    Utils::print("b");
-    return true;
-}
-
-bool b1()
-{
-    Utils::print("b1");
-    return true;
-}
-
-
-bool b2()
-{
-    Utils::print("b2");
-    return true;
-}
 
 int main(int argc, char const* argv[])
 {
-   using namespace Utils;
+    using namespace Utils;
    /*********************/
-
-   //variadic::foo(13, 42, 3.14, 'c', "str");
-   //variadic::printArgs(13, 42, 3.14, 'c', "str");
-
-   if (b1() == b() && b2())
-   {
-       print("...");
-   }
-   
+ 
+    std::bitset<128> mask(1);
+    mask.set(10, true);
+    print(mask);
 }
