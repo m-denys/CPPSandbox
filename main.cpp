@@ -17,6 +17,7 @@
 #include <random>
 #include <stdexcept>
 #include <exception>
+#include <typeinfo>
 
 ////////////////////
 #include "debug.h"
@@ -44,11 +45,31 @@
 
 /****Test-Section****/
 
+class Boo
+{
+public:
+    Boo()
+    : content_("eggs")
+    {
+    }
+
+    static std::string const Boo::* data()
+    {
+        return &Boo::content_;
+    }
+    
+private:
+    std::string content_;
+};
 
 /********************/
 
 int main(int argc, char const* argv[])
 {
     using namespace Utils;
-
+    
+    auto pdata = Boo::data();
+    
+    Boo b;
+    print(b.*pdata);
 }
