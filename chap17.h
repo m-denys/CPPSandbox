@@ -34,6 +34,47 @@ namespace chap17
     //std::bitset<128> mask(1);
     //std::cout << mask << std::endl; -> Output: 000...0001 (128 element)
 
+    // rEGEX
+    // string pattern("[^c]ei"); 
+    // pattern = "[[:alpha:]]*" + pattern + "[[:alpha:]]*"; 
+    // regex r(pattern); 
+    // smatch results;  
+    // string test_str = "receipt freind theif receive";  
+    // cout << results.str() << endl; 
 
+    // rANDOM
+   // std::default_random_engine e;
+   // for (int i = 0; i < 10; ++i)
+   // {
+   //     print(e());
+   // }
+    // Output(The same output for each machine, without defined seed):
+    // 16807
+    // 282475249
+    // 1622650073
+    // 984943658
+    // 1144108930
+    // 470211272
+    // 101027544
+    // 1457850878
+    // 1458777923
+    // 2007237709
+
+    // Small trick
+    unsigned getRandom(unsigned const seed = 0)
+    {
+        // With static, random engine saves his 
+        // state and produces new number on every call
+        static unsigned used_seed = seed;
+        static std::default_random_engine e;
+        static std::uniform_int_distribution<unsigned> u(0, 9); 
+        
+        if (used_seed != seed)
+        {
+            e.seed(used_seed = seed);
+        }
+
+        return u(e);
+    }
 
 } // chap17
