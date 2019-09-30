@@ -45,31 +45,35 @@
 
 /****Test-Section****/
 
-class Boo
+class Bits
 {
+    // Bit fields
 public:
-    Boo()
-    : content_("eggs")
-    {
-    }
+    // Only integral types are available
+    unsigned is_colored  : 1; // Reserves 1 bit [0 - 1]
+    unsigned num_of_events : 4; // Reserves 4 bits [0 - 15]
+    unsigned line_counter : 8; // Reserves 8 bits [0 - 255]
+// Other members can exists in such class    
+public:
+    std::string name_;
 
-    static std::string const Boo::* data()
-    {
-        return &Boo::content_;
-    }
-    
 private:
-    std::string content_;
+    int age_;
 };
 
 /********************/
 
 int main(int argc, char const* argv[])
 {
-    using namespace Utils;
+    using namespace Utils;    
     
-    auto pdata = Boo::data();
+    Bits bits;
+    bits.is_colored = 1;
+    bits.num_of_events = 15;
+    bits.line_counter = 255;
     
-    Boo b;
-    print(b.*pdata);
+    print(bits.is_colored);
+    print(bits.num_of_events);
+    print(bits.line_counter);
+
 }

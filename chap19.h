@@ -313,5 +313,64 @@ enum intValues : unsigned long long
 // // fetch the contents of the object named myScreen
 // auto s = myScreen.*pdata;
 
+// BITFIELDS
+// class Bits
+// {
+//     // Bit fields
+// public:
+//     // Only integral types are available
+//     unsigned is_colored  : 1; // Reserves 1 bit [0 - 1]
+//     unsigned num_of_events : 4; // Reserves 4 bits [0 - 15]
+//     unsigned line_counter : 8; // Reserves 8 bits [0 - 255]
+// // Other members can exists in such class    
+// public:
+//     std::string name_;
 
+// private:
+//     int age_;
+// };
 
+// // Using
+//     Bits bits;
+//     bits.is_colored = 1;
+//     bits.num_of_events = 15;
+//     bits.line_counter = 255;
+    
+//     print(bits.is_colored);
+//     print(bits.num_of_events);
+//     print(bits.line_counter);
+
+// volatile Qualifier
+// The precise meaning of volatile is inherently machine dependent and can be understood only by reading the compiler documentation. 
+// Programs that use volatile usually must be changed when they are moved to new machines or compilers. 
+//The volatile keyword is a directive to the compiler that it should not perform optimizations on such objects
+
+// The volatile qualifier is used in much the same way as the const qualifier. 
+// It is an additional modifier to a type:
+// volatile int display_register; // int value that might change
+// volatile Task *curr_task; // curr_task points to a volatile object
+// volatile int iax[max_size]; // each element in iax is volatile
+// volatile Screen bitmapBuf; // each member of bitmapBuf is volatile
+// There is no interaction between the const and volatile type qualifiers. A type can be both const and volatile, in which case 
+// it has the properties of both. 
+
+// Linkage Directives: extern "C" 
+// // illustrative linkage directives that might appear in the C++ header <cstring>
+// // single-statement linkage directive 
+// extern "C" size_t strlen(const char *); 
+// // compound-statement linkage directive 
+// extern "C" 
+// { 
+//     int strcmp(const char*, const char*); 
+//     char *strcat(char*, const char*); 
+// }
+
+// PREPROCESSOR SUPPORT FOR LINKING TO C
+// To allow the same source ﬁle to be compiled under either C or C++, the preprocessor 
+// defines _ _cplusplus (two underscores) when we compile C++. Using this variable, we can conditionally include 
+// code when we are compiling C++: 
+// #ifdef __cplusplus 
+// // ok:we’re compiling C++ 
+// extern "C" 
+// #endif 
+// int strcmp(const char*, const char*);
